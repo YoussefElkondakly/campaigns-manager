@@ -9,6 +9,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { Campaign } from './campaigns/entities/campaign.entity';
 import { Ad } from './ads/entities/ad.entity';
+import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './roles/roles.guard';
 
 @Module({
   imports: [
@@ -25,7 +28,7 @@ import { Ad } from './ads/entities/ad.entity';
           password: config.get<string>('DATABASE_PASSWORD'),
           // host: config.get<string>('DB_HOST'),
           port: config.get<number>('DATABASE_PORT'),
-          entities: [User,Campaign,Ad],
+          entities: [User, Campaign, Ad],
           synchronize: true,
         };
       },
@@ -34,10 +37,15 @@ import { Ad } from './ads/entities/ad.entity';
       isGlobal: true,
       envFilePath: `.env`,
     }),
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: RolesGuard,
+    // },
+  ],
 })
-export class AppModule {
-
-}
+export class AppModule {}

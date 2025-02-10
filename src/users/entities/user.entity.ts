@@ -3,18 +3,22 @@ import { Column, Entity, ManyToMany, PrimaryGeneratedColumn,  } from "typeorm";
 
 @Entity('Users')
 export class User { 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
     @Column()
-    name: string;
+     name: string;
+     
+    @Column()
+     userName: string;
+
 @Column()
-email:string
+ email:string
 @Column()
-phone:string
+ phone:string
 @Column()
-password:string
+ password:string
 @Column()
-role:string
+ role:string
 @ManyToMany(()=>Campaign,(campaign)=>campaign.partners)
 campaigns: Campaign[]
 }
