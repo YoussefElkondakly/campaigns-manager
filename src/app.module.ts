@@ -12,6 +12,7 @@ import { Ad } from './ads/entities/ad.entity';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './roles/roles.guard';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -38,14 +39,10 @@ import { RolesGuard } from './roles/roles.guard';
       envFilePath: `.env`,
     }),
     AuthModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [
-    AppService,
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: RolesGuard,
-    // },
-  ],
+    AppService, ],
 })
 export class AppModule {}
